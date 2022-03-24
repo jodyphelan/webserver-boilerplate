@@ -30,6 +30,6 @@ celery = make_celery(flask_app)
 
 @celery.task
 def run_task(fq1,fq2,run_id,result_dir):
-    sp.call("zcat %s | wc -l > %s/%s.results.txt" % (fq1,result_dir,run_id),shell=True)
+    sp.call("gunzip -c %s | wc -l > %s/%s.results.txt" % (fq1,result_dir,run_id),shell=True)
     if fq2:
-        sp.call("zcat %s | wc -l >> %s/%s.results.txt" % (fq1,result_dir,run_id),shell=True)
+        sp.call("gunzip -c %s | wc -l >> %s/%s.results.txt" % (fq1,result_dir,run_id),shell=True)
